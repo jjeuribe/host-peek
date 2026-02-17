@@ -29,6 +29,10 @@ function get_tcp() {
     ss -ant | wc -l
 }
 
+function get_kernel() {
+    uname -r
+}
+
 function memory_check() {
     echo -e $(color_green "[+] Memory Usage")
     IFS="|" read used_memory free_memory <<< $(get_memory)
@@ -49,10 +53,8 @@ function tcp_check() {
 }
 
 function kernel_check() {
-    echo ""
-    echo "Kernel version on ${host_name} is: "
-    echo ""
-    uname -r
+    echo -e $(color_green "[+] Kernel Version")
+    echo $(get_kernel)
     echo ""
 }
 
