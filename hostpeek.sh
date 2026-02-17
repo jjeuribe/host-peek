@@ -17,10 +17,14 @@ function color_blue() {
     echo -ne $blue$1$clear
 }
 
+function get_memory() {
+    free -h | awk 'NR==2 {print $3 "|" $4}'
+}
+
 function memory_check() {
-    echo ""
-    echo "The current memory usage on ${host_name} is: "
-    free -h
+    echo -e $(color_green "[+] Memory Usage")
+    IFS="|" read used_memory free_memory <<< $(get_memory)
+    echo "Used: ${used_memory} | Free: ${free_memory}"
     echo ""
 }
 
