@@ -21,6 +21,10 @@ function get_memory() {
     free -h | awk 'NR==2 {print $3 "|" $4}'
 }
 
+function get_cpu() {
+    uptime | awk -F 'load average:' '{print $2}' | xargs
+}
+
 function memory_check() {
     echo -e $(color_green "[+] Memory Usage")
     IFS="|" read used_memory free_memory <<< $(get_memory)
@@ -29,10 +33,8 @@ function memory_check() {
 }
 
 function cpu_check() {
-    echo ""
-    echo "CPU load on ${host_name} is: "
-    echo ""
-    uptime
+    echo -e $(color_green "[+] CPU Load")
+    echo "Load Avg: $(get_cpu)"
     echo ""
 }
 
