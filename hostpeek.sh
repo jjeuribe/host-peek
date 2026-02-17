@@ -25,6 +25,10 @@ function get_cpu() {
     uptime | awk -F 'load average:' '{print $2}' | xargs
 }
 
+function get_tcp() {
+    ss -ant | wc -l
+}
+
 function memory_check() {
     echo -e $(color_green "[+] Memory Usage")
     IFS="|" read used_memory free_memory <<< $(get_memory)
@@ -39,10 +43,8 @@ function cpu_check() {
 }
 
 function tcp_check() {
-    echo ""
-    echo "TCP connections on ${host_name}: "
-    echo ""
-    cat /proc/net/tcp | wc -l
+    echo -e $(color_green "[+] TCP Connections")
+    echo "Active TCP Connections: $(get_tcp)"
     echo ""
 }
 
