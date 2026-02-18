@@ -33,6 +33,10 @@ function get_kernel() {
     uname -r
 }
 
+function get_disk() {
+    df -h / | awk 'NR==2 {print $3 "|" $4 "|" $5}'
+}
+
 function memory_check() {
     echo -e $(color_green "[+] Memory Usage")
     IFS="|" read used_memory free_memory <<< $(get_memory)
@@ -58,9 +62,17 @@ function kernel_check() {
     echo ""
 }
 
+function disk_check() {
+    echo -e $(color_green "[+] Disk Usage")
+    IFS="|" read used_disk free_disk used_disk_percent <<< $(get_disk)
+    echo "Used: ${used_disk} | Free: ${free_disk} | Usage: ${used_disk_percent}"
+    echo ""
+}
+
 case "$1" in 
     --memory)   memory_check ;;
     --cpu)      cpu_check ;;
+    --disk)     disk_check ;;
     --tcp)      tcp_check ;;
     --kernel)   kernel_check ;;
 esac
