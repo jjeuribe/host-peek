@@ -69,10 +69,19 @@ function disk_check() {
     echo ""
 }
 
+function summary() {
+    memory_check
+    cpu_check
+    disk_check
+    tcp_check
+    kernel_check
+}
+
 case "$1" in 
     --memory)   memory_check ;;
     --cpu)      cpu_check ;;
     --disk)     disk_check ;;
     --tcp)      tcp_check ;;
     --kernel)   kernel_check ;;
+    --all)      summary ;;
 esac
