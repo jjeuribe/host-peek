@@ -1,21 +1,11 @@
 #!/bin/bash
-red='\e[31m'
-green='\e[32m'
-blue='\e[34m'
-clear='\e[0m'
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+LIB_DIR="${SCRIPT_DIR}/lib"
+
+source "${LIB_DIR}/colors.sh"
+
 host_name=$(hostname)
-
-function color_red() {
-    echo -ne $red$1$clear
-}
-
-function color_green() {
-    echo -ne $green$1$clear
-}
-
-function color_blue() {
-    echo -ne $blue$1$clear
-}
 
 function get_memory() {
     free -h | awk 'NR==2 {print $3 "|" $4}'
