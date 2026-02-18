@@ -77,6 +77,10 @@ function summary() {
     kernel_check
 }
 
+function usage() {
+    echo "Usage: hostpeek [--memory|--cpu|--disk|--tcp|--kernel|--all]"
+}
+
 case "$1" in 
     --memory)   memory_check ;;
     --cpu)      cpu_check ;;
@@ -84,4 +88,5 @@ case "$1" in
     --tcp)      tcp_check ;;
     --kernel)   kernel_check ;;
     --all)      summary ;;
+    *)          usage ;;
 esac
