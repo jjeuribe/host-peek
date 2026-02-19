@@ -6,7 +6,13 @@ LIB_DIR="${SCRIPT_DIR}/lib"
 
 source "${LIB_DIR}/colors.sh"
 source "${LIB_DIR}/metrics.sh"
-host_name=$(hostname)
+HOSTNAME=$(hostname)
+
+function print_header() {
+    echo -e $(color_blue "[+] HostPeek - System Overview")
+    echo -e $(color_blue "Host: ${HOSTNAME}")
+    echo "---------------------------------------------"
+}
 
 function memory_check() {
     echo -e $(color_green "[+] Memory Usage")
@@ -53,11 +59,11 @@ function usage() {
 }
 
 case "$1" in 
-    --memory)   memory_check ;;
-    --cpu)      cpu_check ;;
-    --disk)     disk_check ;;
-    --tcp)      tcp_check ;;
-    --kernel)   kernel_check ;;
+    --memory)   print_header; memory_check ;;
+    --cpu)      print_header; cpu_check ;;
+    --disk)     print_header; disk_check ;;
+    --tcp)      print_header; tcp_check ;;
+    --kernel)   print_header; kernel_check ;;
     --all)      summary ;;
     *)          usage ;;
 esac
