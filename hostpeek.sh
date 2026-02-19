@@ -8,6 +8,13 @@ source "${LIB_DIR}/colors.sh"
 source "${LIB_DIR}/metrics.sh"
 HOSTNAME=$(hostname)
 
+function label() {
+    message=$1
+    label_width=$2
+
+    printf "%-${label_width}s" "$(color_green "${message}")"
+}
+
 function print_header() {
     echo -e $(color_blue "[+] HostPeek - System Overview")
     echo -e $(color_blue "Host: ${HOSTNAME}")
@@ -47,11 +54,23 @@ function disk_check() {
 }
 
 function summary() {
-    memory_check
-    cpu_check
-    disk_check
-    tcp_check
-    kernel_check
+    IFS="|" read used_memory free_memory <<< $(get_memory)
+    label "Memory:" 20
+    echo "Used: ${used_memory} | Free: ${free_memory}"
+
+    label "CPU:" 20
+    echo "Load Avg: $(get_cpu)"
+
+    IFS="|" read used_disk free_disk used_disk_percent <<< $(get_disk)
+    label "Disk:" 20
+    echo "Used: ${used_disk} | Free: ${free_disk} | Usage: ${used_disk_percent}"
+
+    label "TCP:" 20
+    echo "Active TCP Connections: $(get_tcp)"
+
+    label "Kernel:" 20
+    echo $(get_kernel)
+    echo ""
 }
 
 function usage() {
@@ -64,6 +83,6 @@ case "$1" in
     --disk)     print_header; disk_check ;;
     --tcp)      print_header; tcp_check ;;
     --kernel)   print_header; kernel_check ;;
-    --all)      summary ;;
+    --all)      print_header; summary ;;
     *)          usage ;;
 esac
