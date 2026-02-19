@@ -5,28 +5,8 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 LIB_DIR="${SCRIPT_DIR}/lib"
 
 source "${LIB_DIR}/colors.sh"
-
+source "${LIB_DIR}/metrics.sh"
 host_name=$(hostname)
-
-function get_memory() {
-    free -h | awk 'NR==2 {print $3 "|" $4}'
-}
-
-function get_cpu() {
-    uptime | awk -F 'load average:' '{print $2}' | xargs
-}
-
-function get_tcp() {
-    ss -ant | wc -l
-}
-
-function get_kernel() {
-    uname -r
-}
-
-function get_disk() {
-    df -h / | awk 'NR==2 {print $3 "|" $4 "|" $5}'
-}
 
 function memory_check() {
     echo -e $(color_green "[+] Memory Usage")
