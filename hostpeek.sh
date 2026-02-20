@@ -72,7 +72,7 @@ function summary() {
     echo "Active TCP Connections: $(get_tcp)"
 
     label "Kernel:" 20
-    echo $(get_kernel)
+    echo "Version $(get_kernel)"
     echo ""
 }
 
