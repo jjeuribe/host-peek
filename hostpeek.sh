@@ -50,7 +50,9 @@ function kernel_check() {
 function disk_check() {
     echo -e $(color_green "[+] Disk Usage")
     IFS="|" read used_disk free_disk used_disk_percent <<< $(get_disk)
-    echo "Used: ${used_disk} | Free: ${free_disk} | Usage: ${used_disk_percent}"
+    echo "Used:  ${used_disk}" 
+    echo "Free:  ${free_disk}" 
+    echo "Usage: ${used_disk_percent}"
     echo ""
 }
 
