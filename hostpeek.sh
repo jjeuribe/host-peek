@@ -24,7 +24,8 @@ function print_header() {
 function memory_check() {
     echo -e $(color_green "[+] Memory Usage")
     IFS="|" read used_memory free_memory <<< $(get_memory)
-    echo "Used: ${used_memory} | Free: ${free_memory}"
+    echo "Used: ${used_memory}" 
+    echo "Free: ${free_memory}"
     echo ""
 }
 
