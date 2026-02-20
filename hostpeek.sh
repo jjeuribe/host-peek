@@ -8,11 +8,8 @@ source "${LIB_DIR}/colors.sh"
 source "${LIB_DIR}/system_metrics.sh"
 source "${LIB_DIR}/views.sh"
 source "${LIB_DIR}/summary.sh"
+source "${LIB_DIR}/help.sh"
 HOSTNAME=$(hostname)
-
-function usage() {
-    echo "Usage: hostpeek [--memory|--cpu|--disk|--tcp|--kernel|--all]"
-}
 
 case "$1" in 
     --memory)   print_header; memory_check ;;
