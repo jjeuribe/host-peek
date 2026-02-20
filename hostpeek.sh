@@ -8,6 +8,7 @@ source "${LIB_DIR}/colors.sh"
 source "${LIB_DIR}/system_metrics.sh"
 source "${LIB_DIR}/views.sh"
 source "${LIB_DIR}/summary.sh"
+source "${LIB_DIR}/reports.sh"
 source "${LIB_DIR}/help.sh"
 HOSTNAME=$(hostname)
 
@@ -18,6 +19,7 @@ case "$1" in
     --tcp)      print_header; tcp_check ;;
     --kernel)   print_header; kernel_check ;;
     --all)      print_header; summary ;;
+    --json)     export_to_json ;;
     --help|-h)  usage ;;
     *)          usage; exit 1 ;;
 esac
