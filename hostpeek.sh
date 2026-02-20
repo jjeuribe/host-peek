@@ -18,5 +18,6 @@ case "$1" in
     --tcp)      print_header; tcp_check ;;
     --kernel)   print_header; kernel_check ;;
     --all)      print_header; summary ;;
-    *)          usage ;;
+    --help|-h)  usage ;;
+    *)          usage; exit 1 ;;
 esac
