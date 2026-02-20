@@ -12,14 +12,20 @@ source "${LIB_DIR}/reports.sh"
 source "${LIB_DIR}/help.sh"
 HOSTNAME=$(hostname)
 
-case "$1" in 
-    --memory)   print_header; memory_check ;;
-    --cpu)      print_header; cpu_check ;;
-    --disk)     print_header; disk_check ;;
-    --tcp)      print_header; tcp_check ;;
-    --kernel)   print_header; kernel_check ;;
-    --all)      print_header; summary ;;
-    --json)     export_to_json ;;
-    --help|-h)  usage ;;
-    *)          usage; exit 1 ;;
-esac
+if [[ $# -eq 1 ]]
+then 
+    case "$1" in 
+        --memory)   print_header; memory_check ;;
+        --cpu)      print_header; cpu_check ;;
+        --disk)     print_header; disk_check ;;
+        --tcp)      print_header; tcp_check ;;
+        --kernel)   print_header; kernel_check ;;
+        --all)      print_header; summary ;;
+        --json)     export_to_json ;;
+        --help|-h)  usage ;;
+        *)          usage; exit 1 ;;
+    esac
+else
+    usage
+    exit 1
+fi
